@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FeedRouteImport } from './routes/feed'
+import { Route as FriseRouteImport } from './routes/frise'
+import { Route as PosterRouteImport } from './routes/poster'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeedRoute = FeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FriseRoute = FriseRouteImport.update({
+  id: '/frise',
+  path: '/frise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterRoute = PosterRouteImport.update({
+  id: '/poster',
+  path: '/poster',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/frise': typeof FriseRoute
+  '/poster': typeof PosterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/frise': typeof FriseRoute
+  '/poster': typeof PosterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/frise': typeof FriseRoute
+  '/poster': typeof PosterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/feed' | '/frise' | '/poster'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/feed' | '/frise' | '/poster'
+  id: '__root__' | '/' | '/feed' | '/frise' | '/poster'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FeedRoute: typeof FeedRoute
+  FriseRoute: typeof FriseRoute
+  PosterRoute: typeof PosterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/feed': {
+      id: '/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof FeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/frise': {
+      id: '/frise'
+      path: '/frise'
+      fullPath: '/frise'
+      preLoaderRoute: typeof FriseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster': {
+      id: '/poster'
+      path: '/poster'
+      fullPath: '/poster'
+      preLoaderRoute: typeof PosterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FeedRoute: FeedRoute,
+  FriseRoute: FriseRoute,
+  PosterRoute: PosterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
