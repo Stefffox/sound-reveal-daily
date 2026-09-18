@@ -17,10 +17,10 @@ export const Route = createFileRoute("/feed")({
 });
 
 function FeedPage() {
-  const { hasPosted } = useApp();
+  const { hasPosted, postedGroup } = useApp();
   return <AppShell>
     <div className="flex items-end justify-between gap-3">
-      <div className="min-w-0"><p className="eyebrow">Les Inséparables</p><h1 className="page-title">Aujourd’hui</h1></div>
+      <div className="min-w-0"><p className="eyebrow">{postedGroup ?? "Les Inséparables"}</p><h1 className="page-title">Aujourd’hui</h1></div>
       <span className="shrink-0 rounded-full bg-secondary px-3 py-1.5 text-xs font-semibold text-secondary-foreground">{hasPosted ? "4 / 8 sons" : "3 / 8 sons"}</span>
     </div>
     {!hasPosted ? <LockedFeed /> : <UnlockedFeed />}
