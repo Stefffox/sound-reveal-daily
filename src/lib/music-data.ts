@@ -10,17 +10,17 @@ export type Track = {
   cover: string;
 };
 
-export const tracks: Track[] = [
-  { id: "solstice", title: "Solstice", artist: "L'Impératrice", cover: solsticeCover },
-  { id: "minuit", title: "Minuit sur Paris", artist: "Clara Luciani", cover: minuitCover },
-  { id: "fleurs", title: "Orange Flowers", artist: "Masego", cover: fleursCover },
-  { id: "vague", title: "La vague", artist: "Bon Entendeur", cover: vagueCover },
-];
+export const solsticeTrack: Track = { id: "solstice", title: "Solstice", artist: "L'Impératrice", cover: solsticeCover };
+const minuitTrack: Track = { id: "minuit", title: "Minuit sur Paris", artist: "Clara Luciani", cover: minuitCover };
+const fleursTrack: Track = { id: "fleurs", title: "Orange Flowers", artist: "Masego", cover: fleursCover };
+const vagueTrack: Track = { id: "vague", title: "La vague", artist: "Bon Entendeur", cover: vagueCover };
+
+export const tracks: Track[] = [solsticeTrack, minuitTrack, fleursTrack, vagueTrack];
 
 export const feedPosts = [
-  { name: "Léa", initials: "LÉ", time: "08:42", track: tracks[1], note: "Le ciel était beaucoup trop beau ce matin 🌇" },
-  { name: "Malo", initials: "MA", time: "10:17", track: tracks[2], note: "Besoin de douceur avant les partiels." },
-  { name: "Inès", initials: "IN", time: "12:03", track: tracks[3], note: "En boucle dans le train vers Marseille." },
+  { name: "Léa", initials: "LÉ", time: "08:42", track: minuitTrack, note: "Le ciel était beaucoup trop beau ce matin 🌇" },
+  { name: "Malo", initials: "MA", time: "10:17", track: fleursTrack, note: "Besoin de douceur avant les partiels." },
+  { name: "Inès", initials: "IN", time: "12:03", track: vagueTrack, note: "En boucle dans le train vers Marseille." },
 ];
 
 export const groups = [

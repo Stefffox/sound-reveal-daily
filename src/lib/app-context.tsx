@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { tracks, type Track } from "./music-data";
+import { solsticeTrack, type Track } from "./music-data";
 
 type AppState = {
   hasPosted: boolean;
@@ -24,4 +24,4 @@ export function useApp() {
   return value;
 }
 
-export const defaultTrack = tracks[0];
+export const defaultTrack = solsticeTrack;
