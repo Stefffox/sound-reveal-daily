@@ -37,4 +37,4 @@ export function useApp() {
 }
 
 export const defaultTrack = solsticeTrack;
-export const defaultGroup = groups[0].name;
+export const defaultGroup = groups[0]!.name;
