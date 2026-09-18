@@ -1,9 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Check, Music2, Search } from "lucide-react";
+import { Check, Music2, Search, Users } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AppShell } from "@/components/app-shell";
-import { defaultTrack, useApp } from "@/lib/app-context";
-import { tracks, type Track } from "@/lib/music-data";
+import { defaultGroup, defaultTrack, useApp } from "@/lib/app-context";
+import { groups, tracks, type Track } from "@/lib/music-data";
 
 export const Route = createFileRoute("/poster")({
   head: () => ({ meta: [
@@ -21,6 +21,7 @@ function PosterPage() {
   const navigate = useNavigate();
   const { postTrack, hasPosted } = useApp();
   const [selected, setSelected] = useState<Track>(defaultTrack);
+  const [group, setGroup] = useState(defaultGroup);
   const [query, setQuery] = useState("");
   const [note, setNote] = useState("");
   const filtered = useMemo(() => tracks.filter((track) => `${track.title} ${track.artist}`.toLowerCase().includes(query.toLowerCase())), [query]);
@@ -55,9 +56,22 @@ function PosterPage() {
       <p className="mt-1 text-muted-foreground">{selected.artist}</p>
     </section>
 
+    <p className="mt-7 text-sm font-semibold">Pour quel groupe ?</p>
+    <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label="Choisir le groupe">
+      {groups.map((item) => {
+        const active = item.name === group;
+        return <button key={item.name} role="radio" aria-checked={active} onClick={() => setGroup(item.name)}
+          className={`flex items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${active ? "border-accent bg-accent/15 text-accent-foreground" : "border-border bg-card text-muted-foreground hover:bg-secondary"}`}>
+          <img src={item.cover} alt="" className="size-6 rounded-full object-cover" width={48} height={48} loading="lazy" />
+          <span className="truncate">{item.name}</span>
+          {active ? <Check className="size-3.5 text-accent" /> : <Users className="size-3.5" />}
+        </button>;
+      })}
+    </div>
+
     <label className="mt-7 block text-sm font-semibold" htmlFor="note">Pourquoi ce titre aujourd’hui ? <span className="font-normal text-muted-foreground">(optionnel)</span></label>
     <textarea id="note" value={note} onChange={(event) => setNote(event.target.value)} className="field mt-2 min-h-24 resize-none py-3" maxLength={120} placeholder="Quelques mots pour tes amis…" />
-    <button onClick={() => { postTrack(selected); void navigate({ to: "/feed" }); }} className="primary-action mt-5">
+    <button onClick={() => { postTrack(selected, group); void navigate({ to: "/feed" }); }} className="primary-action mt-5">
       {hasPosted ? <Check className="size-5" /> : <Music2 className="size-5" />} {hasPosted ? "Changer mon son" : "Poster mon son"}
     </button>
   </AppShell>;

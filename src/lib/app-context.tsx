@@ -1,18 +1,30 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { solsticeTrack, type Track } from "./music-data";
+import { groups, solsticeTrack, type Track } from "./music-data";
 
 type AppState = {
   hasPosted: boolean;
   postedTrack: Track | null;
-  postTrack: (track: Track) => void;
+  postedGroup: string | null;
+  postTrack: (track: Track, groupName: string) => void;
 };
 
 const AppContext = createContext<AppState | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [postedTrack, setPostedTrack] = useState<Track | null>(null);
+  const [postedGroup, setPostedGroup] = useState<string | null>(null);
   return (
-    <AppContext.Provider value={{ hasPosted: postedTrack !== null, postedTrack, postTrack: setPostedTrack }}>
+    <AppContext.Provider
+      value={{
+        hasPosted: postedTrack !== null,
+        postedTrack,
+        postedGroup,
+        postTrack: (track, groupName) => {
+          setPostedTrack(track);
+          setPostedGroup(groupName);
+        },
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
@@ -25,3 +37,4 @@ export function useApp() {
 }
 
 export const defaultTrack = solsticeTrack;
+export const defaultGroup = groups[0]!.name;
