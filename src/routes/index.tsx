@@ -21,7 +21,7 @@ function Index() {
   return <AppShell>
     <section className="animate-rise">
       <p className="eyebrow">Vendredi 18 septembre</p>
-      <h1 className="page-title">Salut Nathanaël <span aria-hidden="true">👋</span></h1>
+      <h1 className="page-title">Salut Nathanaël</h1>
       <p className="page-copy">Quelle musique raconte ta journée ?</p>
     </section>
 

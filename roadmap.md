@@ -5,4 +5,4 @@
 - [x] Feed verrouillé et débloqué
 - [x] Frise mensuelle interactive
 - [x] Navigation mobile cohérente
-- [ ] Validation visuelle et erreurs
+- [x] Validation visuelle et erreurs
